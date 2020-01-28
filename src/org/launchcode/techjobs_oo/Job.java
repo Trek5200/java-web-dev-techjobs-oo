@@ -1,5 +1,7 @@
 package org.launchcode.techjobs_oo;
 
+import java.util.Objects;
+
 public class Job {
 
     private int id;
@@ -15,11 +17,13 @@ public class Job {
     //  other five fields. The second constructor should also call the first in order to initialize
     //  the 'id' field.
 
-    public Job(int id) {
-        this.id = id;
+    public Job() {
+        id = nextId;
+        nextId++;
     }
 
     public Job(String name, Employer employer, Location location, PositionType positionType, CoreCompetency coreCompetency) {
+        this();     // Calls the constructor Job() to initialize the id field
         this.name = name;
         this.employer = employer;
         this.location = location;
@@ -30,9 +34,27 @@ public class Job {
     // TODO: Add custom equals and hashCode methods. Consider two Job objects "equal" when their id fields
     //  match.
 
+    @Override // This is the code that was automatically generated
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Job job = (Job) o;
+        return getId() == job.getId() &&
+                Objects.equals(getName(), job.getName()) &&
+                Objects.equals(getEmployer(), job.getEmployer()) &&
+                Objects.equals(getLocation(), job.getLocation()) &&
+                Objects.equals(getPositionType(), job.getPositionType()) &&
+                Objects.equals(getCoreCompetency(), job.getCoreCompetency());
+    }
+
+    @Override  // This is the code that was automatically generated
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getEmployer(), getLocation(), getPositionType(), getCoreCompetency());
+    }
+
+
     // TODO: Add getters for each field EXCEPT nextId. Add setters for each field EXCEPT nextID
     //  and id.
-
 
     public int getId() {
         return id;
