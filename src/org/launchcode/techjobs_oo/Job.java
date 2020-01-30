@@ -2,6 +2,8 @@ package org.launchcode.techjobs_oo;
 
 import java.util.Objects;
 
+import static java.util.Objects.isNull;
+
 public class Job {
 
     private int id = 0;
@@ -20,6 +22,11 @@ public class Job {
     public Job() {
         id = nextId;
         nextId++;
+        this.name = null;
+        this.employer = null;
+        this.location = null;
+        this.positionType = null;
+        this.coreCompetency = null;
     }
 
     public Job(String name, Employer employer, Location location, PositionType positionType, CoreCompetency coreCompetency) {
@@ -51,7 +58,6 @@ public class Job {
     public int hashCode() {
         return Objects.hash(getId(), getName(), getEmployer(), getLocation(), getPositionType(), getCoreCompetency());
     }
-
 
     // TODO: Add getters for each field EXCEPT nextId. Add setters for each field EXCEPT nextID
     //  and id.
@@ -114,38 +120,57 @@ public class Job {
         String coreCompetencyS = "Data not available";
 
         // boolean for null test to print OOPs message if true or job object if false
-        boolean nullTest = (name == null && employer == null && location == null && positionType == null && coreCompetency == null);
+        boolean nullName = (String.valueOf(name) == null || String.valueOf(name) == "null" ||String.valueOf(name) == "");
+        boolean nullEmployer = (String.valueOf(employer) == null || String.valueOf(employer) == "null" ||String.valueOf(employer) == "");
+//        System.out.println(employer.getValue());
+//        boolean nullEmployer = (isNull(employer) || String.valueOf(employer) == "");
+//        boolean nullEmployer = (String.valueOf(employer.getValue()) == "null" || String.valueOf(employer) == "");
+        boolean nullLocation = (String.valueOf(location) == null || String.valueOf(location) == "null" ||String.valueOf(location) == "");
+//        boolean nullLocation = (isNull(location) || (String.valueOf(location) == ""|| (String.valueOf(location) == null)));
+//        System.out.println(isNull(location));
+//        boolean nullLocation = ((location.getValue().equals(null)) || (String.valueOf(location) == ""));
+        // tried location.equals(null) location.equals("null") location==null location=="null"
+        // (String.valueOf(location) == "null") (String.valueOf(location) == null)
+        boolean nullPositionType = (String.valueOf(positionType) == null || String.valueOf(positionType) == "null" ||String.valueOf(positionType) == "");
+        boolean nullCoreCompetency = (String.valueOf(coreCompetency) == null || String.valueOf(coreCompetency) == "null" ||String.valueOf(coreCompetency) == "");
+
+//        System.out.println("nullName: " + nullName);
+//        System.out.println("nullEmployer: " + nullEmployer);
+//        System.out.println("nullLocation: " + nullLocation);
+//        System.out.println("nullPositionType: " + nullPositionType);
+//        System.out.println("nullCoreCompetenc: " + nullCoreCompetency);
+        boolean nullTest = (nullName && nullEmployer && nullLocation && nullPositionType && nullCoreCompetency);
         String oops = "\nOOPS! This job does not seem to exist.\n";
 
-        // Determine if values are null or not
-        // I tried using if (!name.equals(null)), but it did not work.
-        if(!(String.valueOf(name) == null)){
-            nameS = String.valueOf(name);
-        }
-        if(!(String.valueOf(employer) == null)){
-            employerS = String.valueOf(employer);
-        }
-        if(!(String.valueOf(location) == null)){
-            locationS = String.valueOf(location);
-        }
-        if(!(String.valueOf(positionType) == null)){
-            positionTypeS = String.valueOf(positionType);
-        }
-        if(!(String.valueOf(coreCompetency) == null)){
-            coreCompetencyS = String.valueOf(coreCompetency);
-        }
-
-        if(nullTest){
+        if(nullTest) {
             return oops;
         } else {
-            return "\n" +
-                    "ID: " + id + "\n" +
-                    "Name: " + nameS + "\n" +
-                    "Employer: " + employerS + "\n" +
-                    "Location: " + locationS + "\n" +
-                    "Position Type: " + positionTypeS + "\n" +
-                    "Core Competency: " + coreCompetencyS + "\n";
+        // Determine if values are null or not
+        // I tried using if (!name.equals(null)), but it did not work.
+        // I added null/"" booleans above to clean up !(String.valueOf(name) == null || String.valueOf(name) == "" )
+        if(!nullName){
+            nameS = String.valueOf(name);
+        }
+        if(!nullEmployer){
+            employerS = String.valueOf(employer);
+        }
+        if(!nullLocation){
+            locationS = String.valueOf(location);
+        }
+        if(!nullPositionType){
+            positionTypeS = String.valueOf(positionType);
+        }
+        if(!nullCoreCompetency){
+            coreCompetencyS = String.valueOf(coreCompetency);
+        }
+        return "\n" +
+                "ID: " + id + "\n" +
+                "Name: " + nameS + "\n" +
+                "Employer: " + employerS + "\n" +
+                "Location: " + locationS + "\n" +
+                "Position Type: " + positionTypeS + "\n" +
+                "Core Competency: " + coreCompetencyS + "\n";
+        }
         }
     }
 
-}
